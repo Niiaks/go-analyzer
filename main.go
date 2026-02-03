@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"io/fs"
 	"log"
@@ -12,8 +13,14 @@ import (
 const Size = 3 * 1 << 30 // 3 gigabytes
 
 func main() {
-	dir := "C:/Users/junio"
-	fmt.Printf("Scanning files is dir %s\n", dir)
+
+	// dir is the directory to start scanning from (flag "-dir", default: ".")
+	// default scans in working directory
+	dir := flag.String("dir", ".", "path to directory to begin scanning from")
+
+	flag.Parse()
+
+	fmt.Printf("Scanning files in dir %s\n", *dir)
 
 	//a channel which handles all paths
 	jobs := make(chan string, 200)
@@ -33,7 +40,7 @@ func main() {
 		})
 	}
 
-	err := filepath.WalkDir(dir, func(path string, d fs.DirEntry, err error) error {
+	err := filepath.WalkDir(*dir, func(path string, d fs.DirEntry, err error) error {
 		if err != nil {
 			return err
 		}
