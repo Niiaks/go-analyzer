@@ -29,8 +29,8 @@ func main() {
 	minSize := flag.Int("s", 1, "minimum file size in GB")
 	minBytes := int64(*minSize) << 30
 
-	flag.Parse()
 	flag.Usage = usage
+	flag.Parse()
 
 	fmt.Printf("Scanning files in dir %s\n", *dir)
 
