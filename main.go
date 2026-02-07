@@ -37,7 +37,7 @@ func main() {
 	flag.Parse()
 
 	minBytes := int64(*minSize) << 30
-	fmt.Printf("Scanning files in dir %s\n", *dir)
+	fmt.Fprintf(os.Stdout, "Scanning files in dir %s\n", *dir)
 
 	//a channel which handles all paths
 
@@ -80,7 +80,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	fmt.Println("Scan complete.")
+	fmt.Fprintln(os.Stdout, "Scan complete.")
 }
 
 // checkFile prints the file and it's size
@@ -91,7 +91,7 @@ func checkFile(path string, d fs.DirEntry, size int64) {
 	}
 
 	if info.Size() > size {
-		fmt.Printf("Large file: %s | Size: %.2f GB\n",
+		fmt.Fprintf(os.Stdout, "Large file: %s | Size: %.2f GB\n",
 			path,
 			float64(info.Size())/(1<<30))
 	}
