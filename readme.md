@@ -1,1 +1,1 @@
-A simple go application that scans large files on disk 
+A go tool that scans large files on disk 
